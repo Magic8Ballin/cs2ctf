@@ -1,0 +1,13 @@
+﻿{
+  "secured_t_flag": "{0} hat die T Flagge aufgehoben!",
+  "secured_ct_flag": "{0} hat die CT Flagge aufgehoben!",
+  "dropped_t_flag": "{0} hat die T Flagge verloren!",
+  "dropped_ct_flag": "{0} hat die CT Flagge verloren!",
+  "t_flag_returned": "Die T Flagge ist zurück in der Basis!",
+  "ct_flag_returned": "Die CT Flagge ist zurück in der Basis!",
+  "respawned": "Du bist neu gespawned!",
+  "respawning_seconds": "⏳ Du spawnst in {0} Sekunden neu...",
+  "respawning_second": "⏳ Du spawnst in einer Sekunde neu...",
+  "editor_enabled": "CTF editor wurde aktiviert",
+  "editor_disabled": "CTF editor wurde deaktiviert"
+}

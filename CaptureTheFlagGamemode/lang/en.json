@@ -1,0 +1,13 @@
+﻿{
+  "secured_t_flag": "{0} secured the T flag!",
+  "secured_ct_flag": "{0} secured the CT flag!",
+  "dropped_t_flag": "{0} dropped the T flag!",
+  "dropped_ct_flag": "{0} dropped the CT flag!",
+  "t_flag_returned": "The T flag returned to base!",
+  "ct_flag_returned": "The CT flag returned to base!",
+  "respawned": "You have respawned!",
+  "respawning_seconds": "⏳ Respawning in {0} seconds...",
+  "respawning_second": "⏳ Respawning in 1 second...",
+  "editor_enabled": "CTF editor was enabled",
+  "editor_disabled": "CTF editor was disabled"
+}
