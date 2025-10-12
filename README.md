@@ -3,15 +3,16 @@
 
 # About CS2 CTF
 
-CS2 CTF is a (Counter Strike Sharp)[https://github.com/roflmuffin/CounterStrikeSharp] mod which adds back the old Capture The Flag mode. Both teams do own a flag and each team needs to return the flag of the opponent to their own base. CS2 CTF currently does support
+CS2 CTF is a [Counter Strike Sharp](https://github.com/roflmuffin/CounterStrikeSharp) mod which adds back the old Capture The Flag mode. Both teams do own a flag and each team needs to return the flag of the opponent to their own base. CS2 CTF currently does support
 
 - Create content posts for your community keeping them up to date, including social media features like comments and likes
 
 ## Installation
 
-1. Install (MetaMod)[https://www.sourcemm.net/downloads.php/?branch=master] on your server
-2. Install (MetaMod MultiAddonManager)[https://github.com/Source2ZE/MultiAddonManager/releases]. This is required to download the CTF assets (Flags, Sounds)
-3. Install (CounterStrikeSharp)[https://github.com/roflmuffin/CounterStrikeSharp/releases]. If you struggle with the version, check out their (documentation)[https://docs.cssharp.dev/docs/guides/getting-started.html]
+1. Install [MetaMod](https://www.sourcemm.net/downloads.php/?branch=master) on your server
+2. Install [MetaMod MultiAddonManager](https://github.com/Source2ZE/MultiAddonManager/releases). This is required to download the CTF assets (Flags, Sounds)
+3. Add the following workshop item to that Multi Addon Manager: [Capture The Flag (CTF) Assets](https://steamcommunity.com/sharedfiles/filedetails/?id=3580683430), ID 3580683430
+3. Install [CounterStrikeSharp](https://github.com/roflmuffin/CounterStrikeSharp/releases). If you struggle with the version, check out their [documentation](https://docs.cssharp.dev/docs/guides/getting-started.html)
 4. Download and build the plugin
 5. Move it into the ```addons/counterstrikesharp/plugins``` folder
 
