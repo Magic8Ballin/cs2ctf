@@ -5,7 +5,19 @@
 
 CS2 CTF is a [Counter Strike Sharp](https://github.com/roflmuffin/CounterStrikeSharp) mod which adds back the old Capture The Flag mode. Both teams do own a flag and each team needs to return the flag of the opponent to their own base. CS2 CTF currently does support
 
-- Create content posts for your community keeping them up to date, including social media features like comments and likes
+- [x] Spawning flags for each team with an easy editor
+- [x] Picking up flags for each team
+- [x] Respawning when a player was killed
+- [x] Awarding MVPs for secured flags
+- [x] Securing flags, including playing a sound and chat messages
+
+What is still required and needs to be worked on:
+
+- [ ] If a flag was lost, return it either after X seconds as set by the ConVar or return it if a team member touched it and play the return sound plus text message
+- [ ] The editor does need a command to create spawns, as default spawns will usually not work for this type of game mode
+- [ ] Editor needs to save the base location as well as spawn locations into a .json file for every map and load it on map change
+- [ ] When a player secured a flag, the score needs to be adjusted
+- [ ] When the scorelimit is hit as per the config, the map should end
 
 ## Installation
 
