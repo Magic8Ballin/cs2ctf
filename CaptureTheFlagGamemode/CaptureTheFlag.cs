@@ -13,17 +13,17 @@ namespace CaptureTheFlagGamemode;
 
 public partial class CaptureTheFlag : BasePlugin
 {
-    public override string ModuleName => "Capture The Flag 3";
+    public override string ModuleName => "Capture The Flag";
 
     public override string ModuleAuthor => "Astinox";
 
-    public override string ModuleVersion => "0.0.3";
+    public override string ModuleVersion => "0.0.4";
 
     public override string ModuleDescription => "Adds the Capture the Flag game mode to Counter Strike 2";
     
     private readonly TFlag _tFlag = new();
 
-    private CtFlag _ctFlag = new();
+    private readonly CtFlag _ctFlag = new();
 
     private Dictionary<CCSPlayerController, Timer> _respawnTimers = new();
     private Dictionary<CCSPlayerController, int> _respawnTimes = new();
@@ -37,9 +37,7 @@ public partial class CaptureTheFlag : BasePlugin
     public override void Load(bool hotReload)
     {
         Instance = this;
-
-        Console.WriteLine("loaded CTF");
-
+        
         RegisterCommands();
 
         RegisterListener<Listeners.OnServerPrecacheResources>(OnServerPrecacheResources);
@@ -51,7 +49,6 @@ public partial class CaptureTheFlag : BasePlugin
         {
             _tFlag.RemoveEntities();
             _ctFlag.RemoveEntities();
-            Console.WriteLine("test mapstart");
         });
         
         RegisterListener<Listeners.OnMapEnd>(() =>
@@ -65,6 +62,7 @@ public partial class CaptureTheFlag : BasePlugin
 
     public void Unload()
     {
+        Console.WriteLine("TEST CTF UNLOAD");
         _gameObjectiveTimer?.Kill();
         _tFlag.RemoveEntities();
         _ctFlag.RemoveEntities();
@@ -217,9 +215,11 @@ public partial class CaptureTheFlag : BasePlugin
 
         _tFlag.Secure(player);
         
-        player.MVPs += 1;
-                
-        Utilities.SetStateChanged(player, "CCSPlayerController", "m_iMVPs");
+        AddMvp(player);
+        
+        AddTeamScore(player.Team, 1);
+
+        CheckScorelimit();
     }
     
     public void OnPlayerEnterTBase(CCSPlayerController? player)
@@ -233,10 +233,12 @@ public partial class CaptureTheFlag : BasePlugin
         if (_ctFlag.Carrier!.UserId != player.UserId) return;
         
         _ctFlag.Secure(player);
+
+        AddMvp(player);
         
-        player.MVPs += 1;
-                
-        Utilities.SetStateChanged(player, "CCSPlayerController", "m_iMVPs");
+        AddTeamScore(player.Team, 1);
+
+        CheckScorelimit();
     }
 
     private void CheckIfPlayersEnterObjectives()
@@ -335,7 +337,7 @@ public partial class CaptureTheFlag : BasePlugin
             player.PrintToCenter(Localizer["respawned"]);
         }
     }
-
+    
     private bool IsInEditor()
     {
         return _isEditing;

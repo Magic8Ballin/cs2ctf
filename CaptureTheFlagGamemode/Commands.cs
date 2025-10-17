@@ -1,5 +1,4 @@
 ﻿using CounterStrikeSharp.API.Core;
-using CounterStrikeSharp.API.Modules.Cvars;
 
 namespace CaptureTheFlagGamemode;
 

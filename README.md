@@ -10,14 +10,17 @@ CS2 CTF is a [Counter Strike Sharp](https://github.com/roflmuffin/CounterStrikeS
 - [x] Respawning when a player was killed
 - [x] Awarding MVPs for secured flags
 - [x] Securing flags, including playing a sound and chat messages
+- [x] When a player secured a flag, the score needs to be adjusted
+- [x] When the scorelimit is hit as per the config, the map restarts
 
 What is still required and needs to be worked on:
 
 - [ ] If a flag was lost, return it either after X seconds as set by the ConVar or return it if a team member touched it and play the return sound plus text message
 - [ ] The editor does need a command to create spawns, as default spawns will usually not work for this type of game mode
 - [ ] Editor needs to save the base location as well as spawn locations into a .json file for every map and load it on map change
-- [ ] When a player secured a flag, the score needs to be adjusted
-- [ ] When the scorelimit is hit as per the config, the map should end
+- [ ] Buyzones need to be added dynamically around the bases
+- [ ] Existing buyzones need to be removed from the maps at map start
+- [ ] When the scorelimit is hit it should freeze all players so you can't move anymore and/or switch to the next map (dunno how)
 
 ## Installation
 

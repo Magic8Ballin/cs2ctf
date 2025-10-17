@@ -101,6 +101,11 @@ public class BaseFlag
             var offset = new Vector(2, -2, 50);
             _entity.Teleport(origin + offset, new QAngle(0, player.PlayerPawn.Value.EyeAngles.Y, 0), player.PlayerPawn.Value.AbsVelocity);
         }
+        
+        foreach (CCSPlayerController p in Utilities.GetPlayers().Where(p => p is { IsValid: true, IsBot: false }))
+        {
+            p.EmitSound(Sounds["pickup"]);
+        }
 
         Position = null;
     }

@@ -14,15 +14,25 @@ public class CtFlag : BaseFlag
 
     public new void Drop(Vector position, QAngle? angle = null)
     {
-        base.Drop(position, angle);
-        
         Server.PrintToChatAll(CaptureTheFlag.Instance.Localizer["dropped_ct_flag", Carrier!.PlayerName]);
+        
+        base.Drop(position, angle);
+    }
+    
+    public new void Pickup(CCSPlayerController? player)
+    {
+        base.Pickup(player);
+        
+        if (Carrier != null)
+        {
+            Server.PrintToChatAll(CaptureTheFlag.Instance.Localizer["pickedup_ct_flag", Carrier!.PlayerName]);   
+        }
     }
     
     public new void Secure(CCSPlayerController? player)
     {
-        base.Secure(player);
-        
         Server.PrintToChatAll(CaptureTheFlag.Instance.Localizer["secured_ct_flag", Carrier!.PlayerName]);
+        
+        base.Secure(player);
     }
 }
