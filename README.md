@@ -6,8 +6,6 @@
 
 CS2CTF is a mod which adds one of the most competitive and nostalgic game modes in shooter history back to Counter Strike 2. Both teams own a flag and each team needs to capture the flag of the opponent to score - all while constantly respawning.
 
-## The Game Mode
-
 Capture The Flag is not round-based, compared to bomb defusal. Each team has a homebase which includes their flag. The goal is to capture the flag of the enemy and bring it back to your own base. As everybody constantly respawns, there could be players waiting for you everywhere. Battle it out in a fast-pace high-intensity competitive game mode!
 
 ## Installation
