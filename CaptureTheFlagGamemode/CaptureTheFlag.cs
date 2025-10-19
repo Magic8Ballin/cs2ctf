@@ -17,7 +17,7 @@ public partial class CaptureTheFlag : BasePlugin
 
     public override string ModuleAuthor => "Astinox";
 
-    public override string ModuleVersion => "0.0.4";
+    public override string ModuleVersion => "0.5.1";
 
     public override string ModuleDescription => "Adds the Capture the Flag game mode to Counter Strike 2";
     
@@ -37,32 +37,40 @@ public partial class CaptureTheFlag : BasePlugin
     public override void Load(bool hotReload)
     {
         Instance = this;
-        
+            
+        // We need these even if CTF is disabled
         RegisterCommands();
-
         RegisterListener<Listeners.OnServerPrecacheResources>(OnServerPrecacheResources);
-        
-        // CTF objective position tracking loop
-        _gameObjectiveTimer = AddTimer(0.1f, CheckIfPlayersEnterObjectives, TimerFlags.REPEAT);
+        RegisterFakeConVars(typeof(FakeConVar<>));
         
         RegisterListener<Listeners.OnMapStart>(_ =>
         {
-            _tFlag.RemoveEntities();
-            _ctFlag.RemoveEntities();
+            // If for whatever reason we have old entities left, remove them
+            _tFlag?.RemoveEntities();
+            _ctFlag?.RemoveEntities();
+            
+            // If CTF is disabled, skip these steps
+            if (!Enabled.Value) return;
+            
+            // Execute this with a slight delay to execute it after the normal configs have been loaded
+            AddTimer(0.5f, () => Server.ExecuteCommand("exec gamemode_ctf"));
+            
+            // CTF objective position tracking loop
+            _gameObjectiveTimer = AddTimer(0.1f, CheckIfPlayersEnterObjectives, TimerFlags.REPEAT);
+            
+            Console.WriteLine("Capture The Flag initialized");
         });
         
         RegisterListener<Listeners.OnMapEnd>(() =>
         {
-            _tFlag.RemoveEntities();
-            _ctFlag.RemoveEntities();
+            _tFlag?.RemoveEntities();
+            _ctFlag?.RemoveEntities();
+            _gameObjectiveTimer?.Kill();
         });
-        
-        RegisterFakeConVars(typeof(FakeConVar<>));
     }
 
     public void Unload()
     {
-        Console.WriteLine("TEST CTF UNLOAD");
         _gameObjectiveTimer?.Kill();
         _tFlag.RemoveEntities();
         _ctFlag.RemoveEntities();
@@ -89,6 +97,36 @@ public partial class CaptureTheFlag : BasePlugin
             // TODO: HIDE SPAWN LOCATIONS
             player.PrintToCenter(Localizer["editor_disabled"]);
         }
+    }
+
+    private void ToggleGamemode(CCSPlayerController? player, CommandInfo command)
+    {
+        if (player == null || !player.IsValid) return;
+
+        if (Enabled.Value)
+        {
+            Server.ExecuteCommand("mp_ctf_enabled 0");
+            player.PrintToCenter(Localizer["ctf_disabled"]);
+        }
+        else
+        {
+            Server.ExecuteCommand("mp_ctf_enabled 1");
+            player.PrintToCenter(Localizer["ctf_enabled"]);
+        }
+    }
+
+    private void ChangeMapCtf(CCSPlayerController? player, CommandInfo command)
+    {
+        // If no map was provided, we reload the current map with CTF enabled
+        var map = Server.MapName;
+        
+        if (command.ArgCount > 1)
+        {
+            map = command.ArgByIndex(1);
+        }
+        
+        Server.ExecuteCommand("mp_ctf_enabled 1");
+        Server.ExecuteCommand("map " + map);
     }
     
     private void OnServerPrecacheResources(ResourceManifest manifest)
@@ -132,6 +170,15 @@ public partial class CaptureTheFlag : BasePlugin
         if (player == null || !player.IsValid) return;
         
         if(!player.PawnIsAlive) return;
+
+        if (FlagReturnOnTouch.Value && !VectorEquals(_tFlag.BasePosition, _tFlag.Position) && player.Team == CsTeam.Terrorist)
+        {
+            Console.WriteLine("BASE: " + _tFlag.BasePosition);
+            Console.WriteLine("CURRENT: " + _tFlag.BasePosition);
+            _tFlag.Return();
+        }
+        
+        if (player.Team == CsTeam.Terrorist) return;
         
         _tFlag.Pickup(player);
     }
@@ -141,6 +188,15 @@ public partial class CaptureTheFlag : BasePlugin
         if (player == null || !player.IsValid) return;
         
         if(!player.PawnIsAlive) return;
+        
+        if (FlagReturnOnTouch.Value && !VectorEquals(_ctFlag.BasePosition, _ctFlag.Position) && player.Team == CsTeam.CounterTerrorist)
+        {
+            Console.WriteLine("BASE: " + _ctFlag.BasePosition);
+            Console.WriteLine("CURRENT: " + _ctFlag.BasePosition);
+            _ctFlag.Return();
+        }
+        
+        if (player.Team == CsTeam.CounterTerrorist) return;
         
         _ctFlag.Pickup(player);
     }
@@ -211,7 +267,7 @@ public partial class CaptureTheFlag : BasePlugin
 
         if (!_tFlag.IsTaken()) return;
         
-        if (_tFlag.Carrier!.UserId != player.UserId) return;
+        if (_tFlag.Carrier?.UserId != player.UserId) return;
 
         _tFlag.Secure(player);
         
@@ -230,7 +286,7 @@ public partial class CaptureTheFlag : BasePlugin
         
         if (!_ctFlag.IsTaken()) return;
 
-        if (_ctFlag.Carrier!.UserId != player.UserId) return;
+        if (_ctFlag.Carrier?.UserId != player.UserId) return;
         
         _ctFlag.Secure(player);
 
@@ -294,14 +350,6 @@ public partial class CaptureTheFlag : BasePlugin
                 }
             }
         }
-    }
-    
-    private float VectorDistance(Vector a, Vector b)
-    {
-        var dx = a.X - b.X;
-        var dy = a.Y - b.Y;
-        var dz = a.Z - b.Z;
-        return MathF.Sqrt(dx * dx + dy * dy + dz * dz);
     }
     
     private void HandleRespawnTimer(CCSPlayerController player)

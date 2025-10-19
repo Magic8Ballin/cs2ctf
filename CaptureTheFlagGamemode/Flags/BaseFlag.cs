@@ -14,6 +14,8 @@ public class BaseFlag
     private CBeam? _baseEntity;
     
     public CCSPlayerController? Carrier;
+
+    private Timer? _returnTimer;
     
     public Vector? BasePosition;
 
@@ -89,8 +91,6 @@ public class BaseFlag
     {
         if (player == null || !player.IsValid || player.PlayerPawn.Value == null || !player.PlayerPawn.Value.IsValid) return;
 
-        if (player.Team == Team) return;
-
         Carrier = player;
         
         _entity!.AcceptInput("SetParent", player.PlayerPawn.Value, _entity, "!activator");
@@ -113,6 +113,16 @@ public class BaseFlag
     public void Drop(Vector position, QAngle? angle = null)
     {
         Spawn(position, angle);
+    }
+
+    public void Return()
+    {
+        foreach (CCSPlayerController p in Utilities.GetPlayers().Where(p => p is { IsValid: true, IsBot: false }))
+        {
+            p.EmitSound(Sounds["return"]);
+        }
+        
+        Spawn(BasePosition!);
     }
 
     public void Secure(CCSPlayerController? player)
