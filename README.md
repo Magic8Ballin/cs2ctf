@@ -31,20 +31,13 @@ CS2 CTF is a [Counter Strike Sharp](https://github.com/roflmuffin/CounterStrikeS
 - [ ] Teleport the top 5 players of each team towards the end screen positions as in the vanilla gameplay
 
 ## Installation
-
-1. Install [MetaMod](https://www.sourcemm.net/downloads.php/?branch=master) on your server
-2. Install [MetaMod MultiAddonManager](https://github.com/Source2ZE/MultiAddonManager/releases). This is required to download the CTF assets (Flags, Sounds)
-3. Add the following workshop item to that Multi Addon Manager: [Capture The Flag (CTF) Assets](https://steamcommunity.com/sharedfiles/filedetails/?id=3580683430), ID 3580683430
-3. Install [CounterStrikeSharp](https://github.com/roflmuffin/CounterStrikeSharp/releases). If you struggle with the version, check out their [documentation](https://docs.cssharp.dev/docs/guides/getting-started.html)
-4. Download and build the plugin
-5. Move the gamemode_ctf.cfg from the Config folder into your gameserver `cfg` folder
-5. Move it into the ```addons/counterstrikesharp/plugins``` folder
+Check out our [Installation Guide](https://cs2ctf.gitbook.io/docs/getting-started/installation) in the documentation for a step by step setup!
 
 > [!WARNING]  
 > **There is currently no pre-built version available as this gamemode is not production ready and still in development**
 
 ## Documentation
-More information and help can be found in our [documentation right here](https://cs2ctf.gitbook.io/docs)!
+More information and help can be found in our [documentation](https://cs2ctf.gitbook.io/docs)!
 
 ## Community & Support
 If you have checked the documentation and require additional help, want to be part of the community or just want to chat: [Join us on Discord](https://discord.gg/Xwp5eun7w7)!
