@@ -16,4 +16,10 @@ public partial class CaptureTheFlag : BasePlugin
     public FakeConVar<bool> FlagBaseHasBeam = new("mp_flag_base_has_beam", "Defines if the flag base does have a beam by default (can be deactivated on maps with proper flag platforms)", true);
     
     public FakeConVar<bool> Enabled = new("mp_ctf_enabled", "Whether or not the CTF mode should be enabled", false);
+
+    // Per-map base positions/orientations (empty by default)
+    public FakeConVar<string> CtBasePos  = new("mp_ctf_ct_base_pos", "CT base position as \"x y z\"", "");
+    public FakeConVar<string> CtBaseAng  = new("mp_ctf_ct_base_ang", "CT base orientation as \"pitch yaw roll\"", "");
+    public FakeConVar<string> TBasePos   = new("mp_ctf_t_base_pos",  "T base position as \"x y z\"", "");
+    public FakeConVar<string> TBaseAng   = new("mp_ctf_t_base_ang",  "T base orientation as \"pitch yaw roll\"", "");
 }

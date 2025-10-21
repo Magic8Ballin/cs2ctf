@@ -1,4 +1,13 @@
-/.idea
-/CaptureTheFlagGamemode/bin
-/CaptureTheFlagGamemode/obj
-CaptureTheFlagGamemode.sln.DotSettings.user
+.vs/
+
+bin/
+obj/
+
+TestResults/
+.artifacts/
+
+!.vs/solutionname.sln.DotSettings
+!.vs/solutionname.sln.DotSettings.user
+!.vs/**/*.v12.suo
+!.vs/**/*.sln.docstates
+!.vs/**/*.userprefs
