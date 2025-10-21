@@ -7,14 +7,11 @@ public partial class CaptureTheFlag : BasePlugin
 {
     private void RegisterCommands()
     {
-        AddCommand("killme", "Kill myself for respawn test", OnKillme);
-        
         AddCommand("css_ctf_editor", "Toggles the CTF editor to adjust spawns", OnEditor);
         AddCommand("css_ctf_addtbase", "Sets the CTF home base for terrorists", OnAddTBase);
         AddCommand("css_ctf_addctbase", "Sets the CTF home base for counter terrorists", OnAddCTBase);
         AddCommand("css_ctf", "Toggles the CTF game mode. Requires a map restart to take effect.", ToggleGamemode);
-        AddCommand("css_ctfmap", "Changes a map with CTF game mode enabled", ChangeMapCtf);
-
+        
         // Save/clear/load/start (console + chat)
         AddCommand("css_ctf_save", "Saves CTF bases for the current map", OnSaveCtf);
         AddCommand("css_ctf_clear", "Clears saved CTF config for the current map", OnClearCtf);
@@ -26,7 +23,6 @@ public partial class CaptureTheFlag : BasePlugin
         AddCommand("ctf_addtbase", "Sets the CTF home base for terrorists", OnAddTBase);
         AddCommand("ctf_addctbase", "Sets the CTF home base for counter terrorists", OnAddCTBase);
         AddCommand("ctf", "Toggles the CTF game mode. Requires a map restart to take effect.", ToggleGamemode);
-        AddCommand("ctfmap", "Changes a map with CTF game mode enabled", ChangeMapCtf);
         AddCommand("ctf_save", "Saves CTF bases for the current map", OnSaveCtf);
         AddCommand("ctf_clear", "Clears saved CTF config for the current map", OnClearCtf);
         AddCommand("ctf_load", "Loads CTF config for the current map", OnLoadCtf);
