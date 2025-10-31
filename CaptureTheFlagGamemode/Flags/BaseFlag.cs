@@ -15,8 +15,6 @@ public class BaseFlag
     
     public CCSPlayerController? Carrier;
 
-    private Timer? _returnTimer;
-    
     public Vector? BasePosition;
 
     public readonly float BaseRadius = 100.0f;
@@ -25,7 +23,7 @@ public class BaseFlag
     
     public readonly float FlagRadius = 40.0f;
 
-    protected virtual int[] BaseBeamColor { get; set; } = [255, 255, 255, 255];
+    protected virtual int[] BaseBeamColor { get; set; } = new int[] {255,255,255,255 };
     public virtual string Model { get; set; } = "models/ctf/ctf_flag_t.vmdl";
 
     public virtual CsTeam Team { get; set; } = CsTeam.None;
